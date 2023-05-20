@@ -65,13 +65,15 @@
   font-size: x-small;
 }
 
-tr {
+.clickable_row {
     cursor: pointer;
+    margin-left: -18px;
 }
 button {
     margin: 1em;
 }
 .item-list {
-  height: 250px;
-  margin-bottom: 2em;
+  height: 200px;
+  scroll-behavior:auto;
+  margin-bottom: 1em;
 }

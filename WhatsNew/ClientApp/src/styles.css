@@ -19,3 +19,6 @@ code {
   margin: 0 0 10px;
   border:none;
 }
+label {
+    font-weight: bold;
+}

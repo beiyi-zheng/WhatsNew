@@ -5,26 +5,34 @@
 <div class="row">
   <div class="col-md-2 list-container" *ngIf="data">
     <div class="item-list">
-      <table class="table">
-        <tr>
-          <th>Status</th>
-          <th>
-            Name
-          </th>
-          <th>
-            Author
-          </th>
-        </tr>
-        <tr *ngFor="let d of data" (click)="editItem(d)">
-          <td>{{d.status}}</td>
-          <td>{{d.name}}</td>
-          <td>{{ d.author }}</td>
-        </tr>
-      </table>
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <label>Status</label>
+        </div>
+        <div class="col-md-6 text-center">
+          <label>Name</label>
+        </div>
+        <div class="col-md-3 text-center">
+          <label>Author</label>
+        </div>
+      </div>
+
+      <div class="row clickable_row" *ngFor="let d of data" (click)="editItem(d)">
+        <div class="col-md-3">
+          {{ d.status }}
+        </div>
+        <div class="col-md-6">
+          {{ d.name }}
+        </div>
+        <div class="col-md-3">
+          {{ d.author }}
+        </div>
+      </div>
+      
     </div>
     
     <div *ngIf="publishedItem">
-      <h5>{{ publishedItem!.name }}</h5>
+      <h6>{{ publishedItem!.name }}</h6>
       <div [innerHtml]="transform(publishedItem.content)"></div>
     </div>
   </div>
@@ -55,9 +63,6 @@
           <button class="text-success" (click)="publish(item)" *ngIf="item.status==='Draft'"  [disabled]="item!.name.length===0">Publish</button>
 
           <button class="text-danger float-right" (click)="reset(item)" *ngIf="item.status==='Draft' && item.id>0">Reset</button>
-
-
-
 
         </form>
 
