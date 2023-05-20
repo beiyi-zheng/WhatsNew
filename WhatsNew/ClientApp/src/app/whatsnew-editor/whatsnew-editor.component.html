@@ -1,0 +1,75 @@
+
+
+<p *ngIf="!data"><em>Loading...</em></p>
+
+<div class="row">
+  <div class="col-md-2 list-container" *ngIf="data">
+    <div class="item-list">
+      <table class="table">
+        <tr>
+          <th>Status</th>
+          <th>
+            Name
+          </th>
+          <th>
+            Author
+          </th>
+        </tr>
+        <tr *ngFor="let d of data" (click)="editItem(d)">
+          <td>{{d.status}}</td>
+          <td>{{d.name}}</td>
+          <td>{{ d.author }}</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div *ngIf="publishedItem">
+      <h5>{{ publishedItem!.name }}</h5>
+      <div [innerHtml]="transform(publishedItem.content)"></div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="container" *ngIf="item">
+      <div class="content">
+        <table class="item-title">
+
+          <tr>
+            <td>
+              Name:
+            </td>
+            <td><input type="text" [(ngModel)]="item.name" class="form-control" /></td>
+          </tr>
+
+        </table>
+        
+        <form [formGroup]="form">
+          <div class="editor">
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+            </ngx-editor-menu>
+            <ngx-editor [editor]="editor" formControlName="editorContent" [(ngModel)]="item.content">
+            </ngx-editor>
+          </div>
+
+          <button class="text-info" (click)="save()" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Save</button>
+
+          <button class="text-success" (click)="publish(item)" *ngIf="item.status==='Draft'"  [disabled]="item!.name.length===0">Publish</button>
+
+          <button class="text-danger float-right" (click)="reset(item)" *ngIf="item.status==='Draft' && item.id>0">Reset</button>
+
+
+
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 preview-container" *ngIf="item && item.content!==undefined">
+    <div [innerHtml]="transform(item.content)"></div>
+  </div>
+</div>
+
+
+
+
