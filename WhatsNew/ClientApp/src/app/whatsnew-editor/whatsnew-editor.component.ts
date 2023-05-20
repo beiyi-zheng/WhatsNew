@@ -38,11 +38,14 @@ export class WhatsNewEditorComponent {
 
     if (savedData !== null) {
       this.data = JSON.parse(savedData);
+      this.data.sort((a, b) => { return b.id - a.id; });
+
       this.item = this.getEditItem();
 
     } else {
       http.get<ContentViewModel[]>(baseUrl + 'weatherforecast').subscribe(result => {
         this.data = result;
+        this.data.sort((a, b) => { return b.id - a.id; });
 
         this.item = this.getEditItem();
 

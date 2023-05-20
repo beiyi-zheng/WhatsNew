@@ -73,7 +73,7 @@ button {
     margin: 1em;
 }
 .item-list {
-  height: 200px;
+  max-height: 200px;
   scroll-behavior:auto;
   margin-bottom: 1em;
 }
