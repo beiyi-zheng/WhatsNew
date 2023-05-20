@@ -56,7 +56,7 @@ export class WhatsNewEditorComponent {
     if (this.data.some(x => x.status === "Draft")) {
       return this.data.filter(x => x.status === "Draft")[0];
     } else {
-      return this.copyItem(this.data[0]);
+      return this.copyItem(this.getLastPublished());
     }
   }
   showCopy() {
@@ -111,10 +111,15 @@ export class WhatsNewEditorComponent {
 
     
 
-    var published = this.data.filter(x => x.status === "Published")[0];
+    var published = this.getLastPublished();
     
     
     this.item = this.copyItem(published);
+  }
+  getLastPublished() {
+    var sortedList = this.data.filter(x => x.status === "Published").sort((a, b) => { return b.id -a.id; });
+   
+    return sortedList[0];
   }
   ngOnInit(): void {
     this.editor = new Editor();
