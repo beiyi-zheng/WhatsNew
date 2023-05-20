@@ -34,13 +34,22 @@ export class WhatsNewEditorComponent {
   public publishedItem: ContentViewModel | undefined;
 
   constructor(private sanitizer: DomSanitizer, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<ContentViewModel[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.data = result;
+    var savedData = localStorage.getItem("savedData");
 
+    if (savedData !== null) {
+      this.data = JSON.parse(savedData);
       this.item = this.getEditItem();
 
-      
-    }, error => console.error(error));
+    } else {
+      http.get<ContentViewModel[]>(baseUrl + 'weatherforecast').subscribe(result => {
+        this.data = result;
+
+        this.item = this.getEditItem();
+
+
+      }, error => console.error(error));
+    }
+    
   }
 
   getEditItem() {
@@ -77,17 +86,20 @@ export class WhatsNewEditorComponent {
     this.item = copy;
     return copy;
   }
-  save() { }
-  publish(item:ContentViewModel) {      
-    
-    item!.status = "Published";
+  save(item: ContentViewModel) {
     if (item.id === 0) {
-      item.id = this.data.length;
+      item.id = this.data.length + 1;
       this.data.push(item);
     }
 
-    this.data.filter(x => x.id === item.id)[0].status = "Published";
-    
+    this.data.filter(x => x.id === item.id)[0].content = item.content;
+    this.data.filter(x => x.id === item.id)[0].status = item.status;
+
+   localStorage.setItem("savedData", JSON.stringify( this.data));
+  }
+  publish(item:ContentViewModel) {      
+    item!.status = "Published";
+    this.save(item);    
     this.copyItem(item);
   }
   reset(item: ContentViewModel) {

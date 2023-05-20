@@ -58,7 +58,7 @@
             </ngx-editor>
           </div>
 
-          <button class="text-info" (click)="save()" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Save</button>
+          <button class="text-primary" (click)="save(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Save</button>
 
           <button class="text-success" (click)="publish(item)" *ngIf="item.status==='Draft'"  [disabled]="item!.name.length===0">Publish</button>
 
