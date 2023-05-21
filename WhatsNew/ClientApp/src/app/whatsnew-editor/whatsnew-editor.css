@@ -49,17 +49,26 @@
   }
 }
 
-
-.published-item-name{
-    display: inline-flex;
+.code-container{
+    word-wrap:break-word;
+}
+.inline-flex-row {
+  display: inline-flex;
+}
+.col-md-7 {
+    padding:0;
 }
 .btn-content {
   border: 1px solid rgba(0,0,0,.2);
   padding: 0.25em;
   font-size: x-small;
   margin-top: 0;
+  margin-right: 10px;
 }
-
+.btn-editor {
+  margin-left: -5px;
+  margin-top: 6px;
+}
 .preview-container {
   border: 1px solid rgba(0,0,0,.2);
   margin-left: -10px;

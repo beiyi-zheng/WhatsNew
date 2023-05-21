@@ -32,7 +32,7 @@
     </div>
     <hr />
     <div *ngIf="publishedItem">
-      <div class="published-item-name">
+      <div class="inline-flex-row">
         <h6>{{ publishedItem!.name }}</h6>
         <button class="btn btn-content" *ngIf="showCode" (click)="showCode=!showCode">Html</button>
         <button class="btn btn-content" *ngIf="!showCode" (click)="showCode=!showCode">Code</button>
@@ -40,7 +40,7 @@
       </div>
       
       <div *ngIf="!showCode" [innerHtml]="transform(publishedItem.content)"></div>
-      <div *ngIf="showCode">{{publishedItem.content}}</div>
+      <div *ngIf="showCode" class="code-container">{{publishedItem.content}}</div>
     </div>
   </div>
   <div class="col-md-7">
@@ -54,19 +54,30 @@
             </td>
             <td><input type="text" [(ngModel)]="item.name" class="form-control" /></td>
             <td>
-              <button class="btn btn-content" *ngIf="showItemCode" (click)="showItemCode=!showItemCode">Html</button>
-              <button class="btn btn-content" *ngIf="!showItemCode" (click)="showItemCode=!showItemCode">Code</button>
-
             </td>
           </tr>
 
         </table>
-        
+
         <form [formGroup]="form">
-          <div class="editor" *ngIf="!showItemCode">
-            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
-            </ngx-editor-menu>
-            <ngx-editor [editor]="editor"
+          <div class="editor">
+            <div class="inline-flex-row">
+              <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+              </ngx-editor-menu>
+              <button class="btn btn-content btn-editor" *ngIf="showItemCode" (click)="showItemCode=!showItemCode">Html</button>
+              <button class="btn btn-content btn-editor" *ngIf="!showItemCode" (click)="showItemCode=!showItemCode">Code</button>
+              <button class="btn btn-content text-primary btn-editor text-bold" (click)="save(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Save</button>
+
+              <button class="btn btn-content text-success btn-editor text-bold" (click)="publish(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Publish</button>
+
+              <button class="btn btn-content text-danger btn-editor text-bold" (click)="reset(item)" *ngIf="item.status==='Draft' && item.id>0">Reset</button>
+
+
+
+            </div>
+
+            <ngx-editor *ngIf="!showItemCode"
+                        [editor]="editor"
                         formControlName="editorContent"
                         [(ngModel)]="item.content"
                         (ngModelChange)="editorChange(item)">
@@ -79,11 +90,6 @@
                       [(ngModel)]="itemHtml"
                       (change)="codeChange($event)">{{itemHtml}}</textarea>
           </div>
-          <button class="text-primary" (click)="save(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Save</button>
-
-          <button class="text-success" (click)="publish(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Publish</button>
-
-          <button class="text-danger float-right" (click)="reset(item)" *ngIf="item.status==='Draft' && item.id>0">Reset</button>
 
         </form>
 
