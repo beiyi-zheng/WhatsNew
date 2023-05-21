@@ -32,8 +32,15 @@
     </div>
     <hr />
     <div *ngIf="publishedItem">
-      <h6>{{ publishedItem!.name }}</h6>
-      <div [innerHtml]="transform(publishedItem.content)"></div>
+      <div class="published-item-name">
+        <h6>{{ publishedItem!.name }}</h6>
+        <button class="btn btn-content" *ngIf="showCode" (click)="showCode=!showCode">Html</button>
+        <button class="btn btn-content" *ngIf="!showCode" (click)="showCode=!showCode">Code</button>
+
+      </div>
+      
+      <div *ngIf="!showCode" [innerHtml]="transform(publishedItem.content)"></div>
+      <div *ngIf="showCode">{{publishedItem.content}}</div>
     </div>
   </div>
   <div class="col-md-7">
@@ -46,21 +53,35 @@
               Name:
             </td>
             <td><input type="text" [(ngModel)]="item.name" class="form-control" /></td>
+            <td>
+              <button class="btn btn-content" *ngIf="showItemCode" (click)="showItemCode=!showItemCode">Html</button>
+              <button class="btn btn-content" *ngIf="!showItemCode" (click)="showItemCode=!showItemCode">Code</button>
+
+            </td>
           </tr>
 
         </table>
         
         <form [formGroup]="form">
-          <div class="editor">
+          <div class="editor" *ngIf="!showItemCode">
             <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
             </ngx-editor-menu>
-            <ngx-editor [editor]="editor" formControlName="editorContent" [(ngModel)]="item.content">
+            <ngx-editor [editor]="editor"
+                        formControlName="editorContent"
+                        [(ngModel)]="item.content"
+                        (ngModelChange)="editorChange(item)">
             </ngx-editor>
           </div>
-
+          <div *ngIf="showItemCode">
+            <textarea rows="400"
+                      formControlName="htmlContent"
+                      class="form-control"
+                      [(ngModel)]="itemHtml"
+                      (change)="codeChange($event)">{{itemHtml}}</textarea>
+          </div>
           <button class="text-primary" (click)="save(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Save</button>
 
-          <button class="text-success" (click)="publish(item)" *ngIf="item.status==='Draft'"  [disabled]="item!.name.length===0">Publish</button>
+          <button class="text-success" (click)="publish(item)" *ngIf="item.status==='Draft'" [disabled]="item!.name.length===0">Publish</button>
 
           <button class="text-danger float-right" (click)="reset(item)" *ngIf="item.status==='Draft' && item.id>0">Reset</button>
 

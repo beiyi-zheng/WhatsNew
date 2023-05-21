@@ -50,13 +50,20 @@
 }
 
 
-
-
+.published-item-name{
+    display: inline-flex;
+}
+.btn-content {
+  border: 1px solid rgba(0,0,0,.2);
+  padding: 0.25em;
+  font-size: x-small;
+  margin-top: 0;
+}
 
 .preview-container {
-  border: 1px solid rgba(0,0,0,.2); 
-  margin-left:-10px;
-  min-height:730px;
+  border: 1px solid rgba(0,0,0,.2);
+  margin-left: -10px;
+  min-height: 730px;
 }
 .list-container {
   border: 1px solid rgba(0,0,0,.2);

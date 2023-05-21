@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewEncapsulation, Inject, Pipe, PipeTransform } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Validators, Editor, Toolbar } from 'ngx-editor';
+import { Validators, Editor, Toolbar, toHTML } from 'ngx-editor';
 
 @Component({
   selector: 'app-whatsnew-editor',
@@ -32,6 +32,9 @@ export class WhatsNewEditorComponent {
 
   public item: ContentViewModel | undefined;
   public publishedItem: ContentViewModel | undefined;
+  public showCode: boolean = false;
+  public showItemCode: boolean = false;
+  public itemHtml: string = "";
 
   constructor(private sanitizer: DomSanitizer, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     var savedData = localStorage.getItem("savedData");
@@ -123,6 +126,17 @@ export class WhatsNewEditorComponent {
     var sortedList = this.data.filter(x => x.status === "Published").sort((a, b) => { return b.id -a.id; });
    
     return sortedList[0];
+  }
+
+  editorChange(item:ContentViewModel) {
+    var oParser = new DOMParser();
+    var oDOM = oParser.parseFromString(item.content, "text/html");
+    this.itemHtml = oDOM.body.innerHTML;
+  }
+
+  codeChange(event: any) {
+    console.log(event);
+    
   }
   ngOnInit(): void {
     this.editor = new Editor();

@@ -28,7 +28,7 @@ import { NgxEditorModule } from "ngx-editor";
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'whatsnew', component: WhatsNewEditorComponent },
+      { path: 'whatsneweditor', component: WhatsNewEditorComponent },
     ])
   ],
   providers: [],
