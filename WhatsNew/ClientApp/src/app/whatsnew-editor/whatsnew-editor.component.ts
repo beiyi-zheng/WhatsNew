@@ -43,13 +43,13 @@ export class WhatsNewEditorComponent {
       this.item = this.getEditItem();
 
     } else {
-      http.get<ContentViewModel[]>(baseUrl + 'weatherforecast').subscribe(result => {
+      http.get<ContentViewModel[]>(baseUrl + 'whatsnew').subscribe(result => {
         this.data = result;
         this.data.sort((a, b) => { return b.id - a.id; });
 
         this.item = this.getEditItem();
 
-
+        localStorage.setItem("savedData", JSON.stringify(result));
       }, error => console.error(error));
     }
     
