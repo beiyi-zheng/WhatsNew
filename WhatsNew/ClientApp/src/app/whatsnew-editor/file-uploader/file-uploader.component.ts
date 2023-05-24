@@ -3,11 +3,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-file-manager',
-  templateUrl: './file-manager.component.html',
-  styleUrls: ['./file-manager.component.css']
+  selector: 'app-file-uploader',
+  templateUrl: './file-uploader.component.html',
+  styleUrls: ['./file-uploader.component.css']
 })
-export class FileManagerComponent implements OnInit {
+export class FileUploaderComponent implements OnInit {
   @ViewChild("fileInput", { static: false })
   InputVar: ElementRef | undefined;
 
@@ -15,10 +15,11 @@ export class FileManagerComponent implements OnInit {
   
   public filesToUpload: IFileUploadModel[] = [];
   public uploadedBy: string = "";
-  
+
+  fileBaseUrl: string = "https://dv01.acm.health/professional/NAS/Common/CurrentNewsItems/NewsItems/";
 
   constructor(
-    public dialogRef: MatDialogRef<FileManagerComponent>,
+    public dialogRef: MatDialogRef<FileUploaderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     this.uploadedBy = data.userId;
   }
@@ -41,9 +42,9 @@ export class FileManagerComponent implements OnInit {
   }
   uploadFiles() {
     setTimeout(() => {
-      this.filesToUpload[0].url = "https://dv01.acm.health/professional/NAS/Common/CurrentNewsItems/NewsItems/Care%20Management%2022.2.1%20Release%20Notes.pdf";
-      this.filesToUpload[1].url = "https://dv01.acm.health/professional/NAS/Common/CurrentNewsItems/NewsItems/Referral%20Management%2022.2.1%20Release%20Notes.pdf";
-
+      for (let i = 0; i < this.filesToUpload.length; i++) {
+        this.filesToUpload[i].url = this.fileBaseUrl + this.filesToUpload[i].file.name;
+      }
     });
   }
   openUrl(url: string) {

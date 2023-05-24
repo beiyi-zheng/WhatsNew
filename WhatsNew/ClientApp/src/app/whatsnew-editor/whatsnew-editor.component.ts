@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Validators, Editor, Toolbar, toHTML } from 'ngx-editor';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FileManagerComponent } from './file-manager/file-manager.component';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-whatsnew-editor',
@@ -143,7 +143,7 @@ export class WhatsNewEditorComponent {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(FileManagerComponent, {
+    const dialogRef = this.dialog.open(FileUploaderComponent, {
       width: '600px',
       minHeight: '200px',
       data: { uploadedBy: this.loginUser }

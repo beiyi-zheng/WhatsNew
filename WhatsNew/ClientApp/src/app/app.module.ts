@@ -12,7 +12,7 @@ import { WhatsNewEditorComponent } from './whatsnew-editor/whatsnew-editor.compo
 import { NgxEditorModule } from "ngx-editor";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { FileManagerComponent } from './whatsnew-editor/file-manager/file-manager.component';
+import { FileUploaderComponent } from './whatsnew-editor/file-uploader/file-uploader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     CounterComponent,
     WhatsNewEditorComponent,
-    FileManagerComponent
+    FileUploaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
