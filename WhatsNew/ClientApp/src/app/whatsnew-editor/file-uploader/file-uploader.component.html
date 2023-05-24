@@ -6,7 +6,16 @@
   <div class="files-container">
     <div *ngFor="let file of filesToUpload">
       <div *ngIf="file.url.length===0">{{ file.file.name }}</div>
-      <div *ngIf="file.url.length > 0"><a (click)="openUrl(file.url)">{{file.file.name}}</a></div>
+
+      <div class="row" *ngIf="file.url.length > 0">
+        <div class="col-md-10">
+          <a (click)="openUrl(file.url)">{{file.file.name}}</a>
+
+        </div>
+        <div class="col-md-2">
+          <button mat-button cdkCopyToClipboard="{{file.url}}"><span>📋</span></button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
