@@ -27,17 +27,32 @@ export class FileUploaderComponent implements OnInit {
     this.dialogRef.close();
   }
   ngOnInit(): void {
+    var savedFiles = localStorage.getItem("savedFiles");
+
+    if (savedFiles != null) {
+      
+      this.filesToUpload = JSON.parse(savedFiles);
+    }
+    
   }
 
   getFileInput(eventTarget: any | undefined) {
     if (eventTarget && eventTarget.files) {
       var files: FileList = eventTarget.files;
 
-      this.data.fileName = files[0].name;
-      for (let i = 0; i < files.length; i++) {
-        var fileToUpload: IFileUploadModel = { file: files[i], uploadedBy: this.uploadedBy, url:"" };
-        this.filesToUpload.push(fileToUpload);
-      }
+      setTimeout(() => {
+        for (let i = 0; i < files.length; i++) {
+          if (!this.filesToUpload.some(x => x.file.name === files[i].name)) {
+            var fileToUpload: IFileUploadModel = { file: files[i], name: files[i].name, uploadedBy: this.uploadedBy, url: this.fileBaseUrl + files[i].name };
+            this.filesToUpload.push(fileToUpload);
+
+          }
+        }
+        localStorage.setItem("savedFiles", JSON.stringify(this.filesToUpload));
+      });
+
+      
+      
     }
   }
 
@@ -48,13 +63,7 @@ export class FileUploaderComponent implements OnInit {
 
     });
   }
-  uploadFiles() {
-    setTimeout(() => {
-      for (let i = 0; i < this.filesToUpload.length; i++) {
-        this.filesToUpload[i].url = this.fileBaseUrl + this.filesToUpload[i].file.name;
-      }
-    });
-  }
+
   openUrl(url: string) {
     window.open(url, "_blank");
   }
@@ -62,6 +71,7 @@ export class FileUploaderComponent implements OnInit {
 
 interface IFileUploadModel {
   file: File,
+  name: string,
   uploadedBy: string,
   url:string
 }

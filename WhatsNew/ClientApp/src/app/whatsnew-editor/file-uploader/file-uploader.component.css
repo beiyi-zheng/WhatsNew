@@ -9,12 +9,19 @@
 .files-container {
     margin-top: 1em;
     margin-bottom: 1em;
+    max-height:500px;
+    scroll-behavior:auto;
 }
 label {
     padding-right: 1em;
 }
 a {
-  text-decoration: underline!important;
-  text-decoration-color: darkgreen!important;
-  cursor:pointer;
+  text-decoration: underline !important;
+  text-decoration-color: darkgreen !important;
+  cursor: pointer;
+  overflow-wrap: break-word;
+}
+.btn-close {
+    margin-left: 170px;
+    margin-top: -25px;
 }

@@ -1,8 +1,6 @@
-<h6 mat-dialog-title>File Uploader</h6>
-<div mat-dialog-content class="file-upload-container">
-  <label for="file">Select Files:</label>
-  <input #fileInput type="file" accept="{{ allowedFileExtensions }}" multiple (change)="getFileInput($event.target)" />
-
+<h6 mat-dialog-title>Manager Files</h6>
+<div mat-dialog-content class="file-upload-container" *ngIf="filesToUpload.length > 0">
+  
   <div class="files-container">
     <div *ngFor="let file of filesToUpload">
       <div class="row" *ngIf="file.url.length===0">
@@ -17,22 +15,24 @@
 
       <div class="row" *ngIf="file.url.length > 0">
         <div class="col-md-10">
-          <a (click)="openUrl(file.url)">{{file.file.name}}</a>
+          <a (click)="openUrl(file.url)">{{file.name}}</a>
 
         </div>
         <div class="col-md-2">
-          <button mat-button cdkCopyToClipboard="{{file.url}}"><span>📋</span></button>
+          <button mat-button cdkCopyToClipboard="{{file.url}}"><span title="Copy {{file.url}}">📋</span></button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div mat-dialog-actions class="dialog-action">
-  <button mat-raised-button  *ngIf="filesToUpload.length > 0" (click)="uploadFiles()">Upload</button>
+<div mat-dialog-actions>
+  <input #fileInput type="file" accept="{{ allowedFileExtensions }}" multiple (change)="getFileInput($event.target)" />
 
-  <button mat-raised-button (click)="onNoClick()">Close</button>
-  <!--<button mat-raised-button [mat-dialog-close]="data.fileName" cdkFocusInitial>Ok</button>-->
+  <!--<button mat-raised-button *ngIf="filesToUpload.length > 0" (click)="uploadFiles()">Upload</button>-->
+  <div class="btn-close">
+    <button mat-raised-button (click)="onNoClick()">Close</button>
+    <!--<button mat-raised-button [mat-dialog-close]="data.fileName" cdkFocusInitial>Ok</button>-->
 
-
+  </div>
 
 </div>
