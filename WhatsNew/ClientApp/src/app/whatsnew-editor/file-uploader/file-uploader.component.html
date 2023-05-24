@@ -1,6 +1,6 @@
-<h6 mat-dialog-title>File Manager</h6>
+<h6 mat-dialog-title>File Uploader</h6>
 <div mat-dialog-content class="file-upload-container">
-  <label for="file">Select File:</label>
+  <label for="file">Select Files:</label>
   <input #fileInput type="file" accept="{{ allowedFileExtensions }}" multiple (change)="getFileInput($event.target)" />
 
   <div class="files-container">

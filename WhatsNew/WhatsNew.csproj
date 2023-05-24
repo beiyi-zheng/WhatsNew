@@ -22,10 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\assets\releaseNotes.txt" />
     <None Remove="Controllers\relaseNotes.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ClientApp\src\assets\releaseNotes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="relaseNotes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

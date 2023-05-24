@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewEncapsulation, Inject, Pipe, PipeTransform } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -49,14 +49,23 @@ export class WhatsNewEditorComponent {
       this.item = this.getEditItem();
 
     } else {
-      http.get<ContentViewModel[]>(baseUrl + 'whatsnew').subscribe(result => {
-        this.data = result;
-        this.data.sort((a, b) => { return b.id - a.id; });
+      http.get('assets/releaseNotes.txt', { responseType: 'blob', observe: 'response' })
+        .subscribe((value: HttpResponse<Blob>) => {
+          const data = new Blob([value.body as Blob], { type: value.body?.type });
+          const reader = new FileReader();
+          reader.readAsText(data);
 
-        this.item = this.getEditItem();
+          reader.onload = (content) => {
+            const textInFile = reader.result as string;
 
-        localStorage.setItem("savedData", JSON.stringify(result));
-      }, error => console.error(error));
+            this.data.push({ content: textInFile, author: this.loginUser, id: 1, name: "Realease 22.2", publishedDate: new Date(), status: "Published" });
+
+
+            this.item = this.getEditItem();
+
+            localStorage.setItem("savedData", JSON.stringify(this.data));
+          };
+        });      
     }
     
   }
