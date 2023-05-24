@@ -3,7 +3,7 @@
 <p *ngIf="!data"><em>Loading...</em></p>
 
 <div class="row">
-  <div class="col-md-2 list-container" *ngIf="data">
+  <div class="col-md-2 list-container hidden" *ngIf="data">
     <div class="item-list">
       <div class="row">
         <div class="col-md-3 text-center">
@@ -43,7 +43,7 @@
       <div *ngIf="showCode" class="code-container">{{publishedItem.content}}</div>
     </div>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-9">
     <div class="container" *ngIf="item">
       <div class="content">
         <table class="item-title">
@@ -73,6 +73,7 @@
               <button class="btn btn-content text-danger btn-editor text-bold" (click)="reset(item)" *ngIf="item.status==='Draft' && item.id>0">Reset</button>
 
 
+              <button class="btn btn-content text-primary btn-editor text-bold" (click)="openDialog()" *ngIf="item.status==='Draft'">Upload</button>
 
             </div>
 

@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /WhatsNew/ClientApp/.angular/cache/14.0.3
+/WhatsNew/ClientApp/package-lock.json

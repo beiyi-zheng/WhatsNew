@@ -1,0 +1,21 @@
+<h6 mat-dialog-title>File Manager</h6>
+<div mat-dialog-content class="file-upload-container">
+  <label for="file">Select File:</label>
+  <input #fileInput type="file" accept="{{ allowedFileExtensions }}" multiple (change)="getFileInput($event.target)" />
+
+  <div class="files-container">
+    <div *ngFor="let file of filesToUpload">
+      <div *ngIf="file.url.length===0">{{ file.file.name }}</div>
+      <div *ngIf="file.url.length > 0"><a (click)="openUrl(file.url)">{{file.file.name}}</a></div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="dialog-action">
+  <button mat-raised-button  *ngIf="filesToUpload.length > 0" (click)="uploadFiles()">Upload</button>
+
+  <button mat-raised-button (click)="onNoClick()">Close</button>
+  <!--<button mat-raised-button [mat-dialog-close]="data.fileName" cdkFocusInitial>Ok</button>-->
+
+
+
+</div>

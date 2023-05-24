@@ -79,8 +79,12 @@
   margin-left: 10px;
   min-height: 730px;
   font-size: x-small;
+  
 }
-
+.hidden {
+  visibility:  hidden;
+  display: none;
+}
 .clickable_row {
     cursor: pointer;
     margin-left: -18px;

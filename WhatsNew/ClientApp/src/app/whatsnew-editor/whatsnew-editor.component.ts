@@ -3,6 +3,8 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation, Inject, Pipe, PipeTran
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Validators, Editor, Toolbar, toHTML } from 'ngx-editor';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FileManagerComponent } from './file-manager/file-manager.component';
 
 @Component({
   selector: 'app-whatsnew-editor',
@@ -35,8 +37,9 @@ export class WhatsNewEditorComponent {
   public showCode: boolean = false;
   public showItemCode: boolean = false;
   public itemHtml: string = "";
+  public fileName: string = "";
 
-  constructor(private sanitizer: DomSanitizer, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(public dialog: MatDialog, private sanitizer: DomSanitizer, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     var savedData = localStorage.getItem("savedData");
 
     if (savedData !== null) {
@@ -138,6 +141,20 @@ export class WhatsNewEditorComponent {
     console.log(event);
     
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(FileManagerComponent, {
+      width: '600px',
+      minHeight: '200px',
+      data: { uploadedBy: this.loginUser }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed: ' + result);
+      this.fileName = result;
+    });
+  }
+
   ngOnInit(): void {
     this.editor = new Editor();
   }

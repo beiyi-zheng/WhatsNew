@@ -15,17 +15,19 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.0.3",
+    "@angular/cdk": "14.0.3",
     "@angular/common": "^14.0.3",
     "@angular/compiler": "^14.0.3",
     "@angular/core": "^14.0.3",
     "@angular/forms": "^14.0.3",
+    "@angular/material": "14.0.3",
     "@angular/platform-browser": "^14.0.3",
     "@angular/platform-browser-dynamic": "^14.0.3",
     "@angular/platform-server": "^14.0.3",
     "@angular/router": "^14.0.3",
-    "ngx-editor": "14.0.0",
     "bootstrap": "^5.1.3",
     "jquery": "^3.6.0",
+    "ngx-editor": "14.0.0",
     "oidc-client": "^1.11.5",
     "popper.js": "^1.16.0",
     "run-script-os": "^1.1.6",
@@ -50,6 +52,5 @@
   },
   "overrides": {
     "autoprefixer": "10.4.5"
-  },
-  "optionalDependencies": {}
+  }
 }
