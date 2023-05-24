@@ -5,7 +5,15 @@
 
   <div class="files-container">
     <div *ngFor="let file of filesToUpload">
-      <div *ngIf="file.url.length===0">{{ file.file.name }}</div>
+      <div class="row" *ngIf="file.url.length===0">
+        <div class="col-md-10">
+          {{ file.file.name }}
+        </div>
+        <div class="col-md-2">
+          <button mat-button class="text-danger" (click)="removeFile(file)">&#10006;</button>
+        </div>
+      </div>
+      
 
       <div class="row" *ngIf="file.url.length > 0">
         <div class="col-md-10">

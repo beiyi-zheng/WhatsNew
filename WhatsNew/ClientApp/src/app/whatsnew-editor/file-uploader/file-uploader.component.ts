@@ -40,6 +40,14 @@ export class FileUploaderComponent implements OnInit {
       }
     }
   }
+
+  removeFile(file: IFileUploadModel) {
+    const index = this.filesToUpload.indexOf(file);
+    setTimeout(() => {
+      this.filesToUpload.splice(index, 1);
+
+    });
+  }
   uploadFiles() {
     setTimeout(() => {
       for (let i = 0; i < this.filesToUpload.length; i++) {
